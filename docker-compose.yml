@@ -2,10 +2,10 @@ version: "3.10"
    
 services:
   web:
-    image: shopping-tool
+    image: shopping-tool:v1.0.0
     command: gunicorn wsgi:app -c ./gunicorn.conf.py
     volumes:
-      - .:/code
+      - .:/app
     ports:
       - "8001:8001"
 

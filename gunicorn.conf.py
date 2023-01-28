@@ -1,3 +1,3 @@
 workers = 5
 worker_class = "gevent"
-bind = "0.0.0.1:8001"
+bind = "0.0.0.0:8001"
