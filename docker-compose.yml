@@ -2,7 +2,7 @@ version: "3.10"
    
 services:
   web:
-    image: shopping-tool:v1.0.0
+    image: shopping-tool:v1.1.0
     command: gunicorn wsgi:app -c ./gunicorn.conf.py
     volumes:
       - .:/app
