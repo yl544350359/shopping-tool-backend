@@ -4,6 +4,7 @@ from utilities.mercari import mercari_brief_info
 from utilities.custom_exception import *
 from urllib.parse import urlparse
 import re
+
 class ItemDetail(Resource):
     def post(self):
         parser=reqparse.RequestParser()

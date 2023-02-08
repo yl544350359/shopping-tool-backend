@@ -22,9 +22,11 @@ def mercari_brief_info(url):
         item_name, img_url = parseMercariMetadata(driver)
         formatted_price_jpy, shipping_fee_tag, sold_out_flag, description = parseMercariDetails(driver)
         driver.quit()
-    except WebDriverException:
+    except Exception as e:
+        print(f"Crashed: {e}")
         driver.quit()
         raise
+        
     formatted_final_price_cny = calculateFinalCNYPrice(formatted_price_jpy)
     data={'price_jpy':formatted_price_jpy,
         'price_cny':formatted_final_price_cny,
@@ -56,7 +58,7 @@ def parseMercariDetails(driver,timeout=10):
             print(f"description: {description}")
             break
         except NoSuchElementException:
-            print("Page is loading now....")
+            print("Page is loading now, wait 0.1s",flush=True)
             time.sleep(0.1)
 
     if time.time()-start_time>=timeout and not price and not item_type and not sold_out_element and not description:
@@ -82,15 +84,15 @@ def parseMercariMetadata(driver,timeout=10):
     img_url=None
     while time.time()-start_time<timeout:
         try:
-            item_name = driver.find_element('xpath',"//*[@class='heading page']").text
+            item_name = driver.find_element('xpath',"//h1[contains(@class, 'heading_')]").text
             print("item_name: " + item_name)
             img_url = driver.find_element('xpath',
                 "//mer-item-thumbnail[@data-testid='image-0']").get_attribute('src')
             print("img_url:" + img_url)
             break
         except NoSuchElementException:
-            print("Page is loading now....")
-            time.sleep(0.1)
+            print("Page is loading now, wait 0.3s",flush=True)
+            time.sleep(0.3)
     if time.time()-start_time>=timeout and not item_name and not img_url:
         raise TimeoutError('Fail to find elements in this page.')
     return item_name, img_url
