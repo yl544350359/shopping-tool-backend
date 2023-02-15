@@ -18,7 +18,7 @@ def mercari_brief_info(url):
         # driver = webdriver.Remote("http://localhost:4444/wd/hub", options=chrome_options)
         driver = webdriver.Remote(f"http://{os.environ['SELENIUM_URL']}:4444/wd/hub", options=chrome_options)
         driver.get(url)
-        time.sleep(1)
+        time.sleep(float(1.5))
         item_name, img_url = parseMercariMetadata(driver)
         formatted_price_jpy, shipping_fee_tag, sold_out_flag, description = parseMercariDetails(driver)
         driver.quit()
@@ -46,7 +46,7 @@ def parseMercariDetails(driver,timeout=10):
     while time.time()-start_time<timeout:
         try:
             price = driver.find_element('xpath',
-                "//mer-price[@data-testid='price']").get_attribute('value')
+                "//div[@data-testid='price']/span[2]").text
             print("price:" + price)
             item_type = driver.find_element('xpath',
                 "//mer-text[contains(@class,'PriceAndFee__StyledShippingLabel')]").text
