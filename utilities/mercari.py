@@ -49,7 +49,7 @@ def parseMercariDetails(driver,timeout=10):
                 "//div[@data-testid='price']/span[2]").text
             print("price:" + price)
             item_type = driver.find_element('xpath',
-                "//mer-text[contains(@class,'PriceAndFee__StyledShippingLabel')]").text
+                "//mer-text[contains(@type,'caption')]").text
             print("type: " + item_type)
             sold_out_element = driver.find_element('xpath',
                 "//mer-button[@data-testid='checkout-button']/button").get_attribute("innerHTML")
@@ -61,7 +61,7 @@ def parseMercariDetails(driver,timeout=10):
             print("Page is loading now, wait 0.1s",flush=True)
             time.sleep(0.1)
 
-    if time.time()-start_time>=timeout and not price and not item_type and not sold_out_element and not description:
+    if time.time()-start_time>=timeout and not (price and item_type and sold_out_element and description):
         raise TimeoutError('Fail to find elements in this page.')
 
     if ("送料込み" in item_type):
