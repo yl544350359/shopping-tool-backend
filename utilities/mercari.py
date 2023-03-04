@@ -28,7 +28,9 @@ def mercari_brief_info(url):
         raise
         
     formatted_final_price_cny = calculateFinalCNYPrice(formatted_price_jpy)
-    data={'price_jpy':formatted_price_jpy,
+    data={
+        'item_url':url,
+        'price_jpy':formatted_price_jpy,
         'price_cny':formatted_final_price_cny,
         'item_name':item_name,
         'img_url':img_url,
