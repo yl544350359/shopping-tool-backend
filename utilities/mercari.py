@@ -51,12 +51,12 @@ def parseMercariDetails(driver,timeout=10):
                 "//div[@data-testid='price']/span[2]").text
             print("price:" + price)
             item_type = driver.find_element('xpath',
-                "//mer-text[contains(@type,'caption')]").text
+                "//p[contains(@class,'caption')]").text
             print("type: " + item_type)
             sold_out_element = driver.find_element('xpath',
-                "//mer-button[@data-testid='checkout-button']/button").get_attribute("innerHTML")
+                "//div[@data-testid='checkout-button']/button").text
             print("sold status:" + sold_out_element)
-            description=driver.find_element('xpath',"//mer-text[@data-testid='description']").text
+            description=driver.find_element('xpath',"//pre[@data-testid='description']").text
             print(f"description: {description}")
             break
         except NoSuchElementException:
