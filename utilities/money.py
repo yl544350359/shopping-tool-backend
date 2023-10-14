@@ -9,13 +9,14 @@ def calculateFinalCNYPrice(formatted_price):
     final_price_jpy = formatted_price
     if (formatted_price < 900):
         final_price_jpy += 100
-    elif(formatted_price >= 900 and formatted_price < 1000):
+    elif (formatted_price >= 900 and formatted_price < 1000):
         final_price_jpy = 1000
     else:
         final_price_jpy = final_price_jpy
 
     final_price_cny = final_price_jpy / 100 * pay_rate
     return int(final_price_cny + 1)
+
 
 def getCurrencyRate():
     with open("currency.json", "r") as currency_file:
@@ -48,4 +49,3 @@ def getCurrencyRate():
     original_rate = 100 / (jpy_currency / cny_currency)
     pay_rate = round(original_rate + 0.8, 1)
     return pay_rate
-    
