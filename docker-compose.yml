@@ -13,3 +13,4 @@ services:
     image: selenium/standalone-chrome
     ports:
     - 4444:4444
+    shm_size: '500mb'
